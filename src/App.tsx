@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ContactForm from "./components/ContactForm.tsx";
+import Voucher from "./components/Voucher.tsx";
 
 const App = () => {
     return (
@@ -11,8 +12,8 @@ const App = () => {
                     <ContactForm />
                 </Grid>
                 <Grid size={8}>
-                    <h1>Recibo 2</h1>
-                    // <ContactForm />
+                    <h1>Recibo</h1>
+                    <Voucher />
                 </Grid>
             </Grid>
         </Box>

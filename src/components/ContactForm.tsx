@@ -11,7 +11,8 @@ import Rating from "@mui/material/Rating";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useFormik } from "formik";
+import { type FormikProps, useFormik } from "formik";
+import { useState } from "react";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
@@ -33,11 +34,35 @@ const initialValues = {
 };
 
 const ContactForm = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const submitData = async (data: typeof initialValues, formik: FormikProps<typeof initialValues>) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await fetch("http://localhost:3000/api/test", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+            if (!res.ok) throw new Error("Failed to submit contact");
+            formik.resetForm();
+            console.log(loading);
+        } catch (err) {
+            setError((err as Error).message);
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const formik = useFormik({
         initialValues,
         validationSchema,
         onSubmit: (values) => {
             console.log("zoy form", values);
+            submitData(values, formik);
         },
     });
 
@@ -150,7 +175,7 @@ const ContactForm = () => {
                     {formik.touched.rating && formik.errors.rating}
                 </Typography>
             </Box>
-            <Button color="primary" variant="contained" type="submit">
+            <Button color="primary" loading={loading} variant="contained" type="submit">
                 Enviar Pedido
             </Button>
         </Box>
