@@ -1,70 +1,44 @@
-# React + TypeScript + Vite
+# React + Node.js
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación full stack React en el cliente y Express en el servidor.
 
-Currently, two official plugins are available:
+## Configuración inicial
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Instala las dependencias del cliente:
+    ```bash
+    npm install
+    ```
+2. Instala las dependencias del servidor:
+    ```bash
+    cd backend && npm install
+    cd ..
+    ```
+3. Agregue un archivo .env.example para que se base y agrege el propio .evn, ajusta las variables según tu entorno:
+    ```bash
+    env.example
+    ```
 
-## Expanding the ESLint configuration
+## Scripts para correr el proyecto de front y back
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-   `npm run dev` – Inicia el cliente con Vite.
+-   `npm run dev:server` – Inicia la API Express.
+-   `npm run dev:migrate` – Ejecuta la migración de la base de datos.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Ejecuta el servidor y el cliente en terminales separadas.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Librerías utilizadas
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Frontend
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+-   React
+-   Material UI
+-   Formik
+-   Yup
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Backend
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# react-nodejs
+-   Express
+-   cors
+-   dotenv
+-   joi
+-   pg
