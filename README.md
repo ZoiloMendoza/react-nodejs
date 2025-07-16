@@ -1,11 +1,13 @@
 # React + Node.js
 
-Aplicación full stack React en el cliente y Express en el servidor.
+Aplicación full stack React en el cliente y Express en el servidor. La aplicación permite agregar órdenes a una base de datos PostgreSQL a través de un formulario en React.
 
 ## Configuración inicial
 
 1. Instala las dependencias del cliente:
     ```bash
+    git clone https://github.com/ZoiloMendoza/react-nodejs.git
+    cd react-nodejs
     npm install
     ```
 2. Instala las dependencias del servidor:
