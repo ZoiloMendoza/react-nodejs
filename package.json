@@ -7,6 +7,7 @@
         "dev": "vite",
         "dev:client": "vite",
         "dev:server": "node backend/index.js",
+        "dev:migrate": "node backend/migrate.js",
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview"

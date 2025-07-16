@@ -16,22 +16,31 @@ import { useState } from "react";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
-    customerName: yup.string().required("El nombre es obligatorio"),
-    favoriteCoffee: yup.string().required("El café es obligatorio"),
+    customer_name: yup.string().required("El nombre es obligatorio"),
+    favorite_coffee: yup.string().required("El café es obligatorio"),
     size: yup.string().required("El tamaño es obligatorio"),
-    milkType: yup.string().required("El tipo de leche es obligatorio"),
-    paymentMethod: yup.string().required("El método de pago es obligatorio"),
+    milk_type: yup.string().required("El tipo de leche es obligatorio"),
+    payment_method: yup.string().required("El método de pago es obligatorio"),
     rating: yup.number().min(1, "La calificación es obligatoria").required("La calificación es obligatoria"),
 });
 
 const initialValues = {
-    customerName: "",
-    favoriteCoffee: "",
+    customer_name: "",
+    favorite_coffee: "",
     size: "",
-    milkType: "",
-    paymentMethod: "",
+    milk_type: "",
+    payment_method: "",
     rating: 0,
 };
+
+// const initialValues = {
+//     customer_name: "",
+//     favorite_coffee: "",
+//     size: "",
+//     milk_type: "",
+//     payment_method: "",
+//     rating: 0,
+// };
 
 const ContactForm = () => {
     const [loading, setLoading] = useState(false);
@@ -74,23 +83,23 @@ const ContactForm = () => {
             autoComplete="off"
         >
             <TextField
-                id="customerName"
-                name="customerName"
+                id="customer_name"
+                name="customer_name"
                 label="Nombre de Cliente"
                 size="small"
-                value={formik.values.customerName}
+                value={formik.values.customer_name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.customerName && Boolean(formik.errors.customerName)}
-                helperText={formik.touched.customerName && formik.errors.customerName}
+                error={formik.touched.customer_name && Boolean(formik.errors.customer_name)}
+                helperText={formik.touched.customer_name && formik.errors.customer_name}
             />
-            <FormControl error={formik.touched.favoriteCoffee && Boolean(formik.errors.favoriteCoffee)} size="small">
-                <InputLabel id="favoriteCoffee-label">¿Cuál es tu café favorito?</InputLabel>
+            <FormControl error={formik.touched.favorite_coffee && Boolean(formik.errors.favorite_coffee)} size="small">
+                <InputLabel id="favorite_coffee-label">¿Cuál es tu café favorito?</InputLabel>
                 <Select
-                    labelId="favoriteCoffee-label"
-                    id="favoriteCoffee"
-                    name="favoriteCoffee"
-                    value={formik.values.favoriteCoffee}
+                    labelId="favorite_coffee-label"
+                    id="favorite_coffee"
+                    name="favorite_coffee"
+                    value={formik.values.favorite_coffee}
                     label="¿Cuál es tu café favorito?"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -100,7 +109,7 @@ const ContactForm = () => {
                     <MenuItem value={"latte"}>Latte</MenuItem>
                 </Select>
                 <Typography variant="caption" color="error">
-                    {formik.touched.favoriteCoffee && formik.errors.favoriteCoffee}
+                    {formik.touched.favorite_coffee && formik.errors.favorite_coffee}
                 </Typography>
             </FormControl>
             <FormControl error={formik.touched.size && Boolean(formik.errors.size)} size="small">
@@ -122,13 +131,13 @@ const ContactForm = () => {
                     {formik.touched.size && formik.errors.size}
                 </Typography>
             </FormControl>
-            <FormControl error={formik.touched.milkType && Boolean(formik.errors.milkType)} size="small">
-                <InputLabel id="milkType-label">Tipo de Leche</InputLabel>
+            <FormControl error={formik.touched.milk_type && Boolean(formik.errors.milk_type)} size="small">
+                <InputLabel id="milk_type-label">Tipo de Leche</InputLabel>
                 <Select
-                    labelId="milkType-label"
-                    id="milkType"
-                    name="milkType"
-                    value={formik.values.milkType}
+                    labelId="milk_type-label"
+                    id="milk_type"
+                    name="milk_type"
+                    value={formik.values.milk_type}
                     label="Tipo de Leche"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -138,20 +147,20 @@ const ContactForm = () => {
                     <MenuItem value={"light"}>Light</MenuItem>
                 </Select>
                 <Typography variant="caption" color="error">
-                    {formik.touched.milkType && formik.errors.milkType}
+                    {formik.touched.milk_type && formik.errors.milk_type}
                 </Typography>
             </FormControl>
             <FormControl
                 component="fieldset"
-                error={formik.touched.paymentMethod && Boolean(formik.errors.paymentMethod)}
+                error={formik.touched.payment_method && Boolean(formik.errors.payment_method)}
                 sx={{ mt: 1 }}
             >
                 <FormLabel component="legend">Forma de Pago</FormLabel>
                 <RadioGroup
                     row
-                    id="paymentMethod"
-                    name="paymentMethod"
-                    value={formik.values.paymentMethod}
+                    id="payment_method"
+                    name="payment_method"
+                    value={formik.values.payment_method}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                 >
@@ -160,7 +169,7 @@ const ContactForm = () => {
                     <FormControlLabel value="transferencia" control={<Radio />} label="Transferencia Bancaria" />
                 </RadioGroup>
                 <Typography variant="caption" color="error">
-                    {formik.touched.paymentMethod && formik.errors.paymentMethod}
+                    {formik.touched.payment_method && formik.errors.payment_method}
                 </Typography>
             </FormControl>
             <Box>
