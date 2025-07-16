@@ -12,8 +12,9 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { type FormikProps, useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
+import type { IOrder } from "../App";
 
 const validationSchema = yup.object({
     customer_name: yup.string().required("El nombre es obligatorio"),
@@ -33,18 +34,29 @@ const initialValues = {
     rating: 0,
 };
 
-// const initialValues = {
-//     customer_name: "",
-//     favorite_coffee: "",
-//     size: "",
-//     milk_type: "",
-//     payment_method: "",
-//     rating: 0,
-// };
-
-const ContactForm = () => {
+const CoffeForm = ({ onAddOrder }: { onAddOrder: React.Dispatch<React.SetStateAction<IOrder[]>> }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const fetchEntries = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await fetch("http://localhost:3000/api/test");
+            if (!res.ok) throw new Error("Failed to fetch contacts");
+            const data = await res.json();
+            onAddOrder(data);
+        } catch (err) {
+            setError("Error al obtener el pedido, por favor intente más tarde.");
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchEntries();
+    }, []);
 
     const submitData = async (data: typeof initialValues, formik: FormikProps<typeof initialValues>) => {
         setLoading(true);
@@ -55,11 +67,13 @@ const ContactForm = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             });
-            if (!res.ok) throw new Error("Failed to submit contact");
+            if (!res.ok) throw new Error("Ocurrio un error");
+
             formik.resetForm();
-            console.log(loading);
+            fetchEntries();
         } catch (err) {
-            setError((err as Error).message);
+            setError("Error al enviar el pedido, por favor intente más tarde.");
+            console.log(err);
             console.log(error);
         } finally {
             setLoading(false);
@@ -70,7 +84,6 @@ const ContactForm = () => {
         initialValues,
         validationSchema,
         onSubmit: (values) => {
-            console.log("zoy form", values);
             submitData(values, formik);
         },
     });
@@ -191,4 +204,4 @@ const ContactForm = () => {
     );
 };
 
-export default ContactForm;
+export default CoffeForm;
